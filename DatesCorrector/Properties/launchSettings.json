@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DatesCorrector": {
+      "commandName": "Project",
+      "commandLineArgs": "F:\\Pictures\\Camera"
+    }
+  }
+}

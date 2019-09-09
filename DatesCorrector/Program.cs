@@ -1,4 +1,5 @@
 ﻿using System;
+using DatesCorrector.Algorithms;
 
 namespace DatesCorrector
 {
@@ -6,13 +7,15 @@ namespace DatesCorrector
     {
         static void Main(string[] args)
         {
-            var pathWithArgs = args.Length > 1 ? args[1] : GetArgs();
+            var pathWithArgs = args.Length > 0 ? args[0] : GetArgs();
 
             var path = pathWithArgs.Split()[0];
             var parameters = pathWithArgs.Split()[1..];
 
             var fileListMaker = new FileListMaker(path, parameters);
-            var fileCorrector = new FileCorrector(fileListMaker.GetFiles());
+            var fileCorrector = new FilesCorrector(fileListMaker.GetFiles(), new DefaultChooseStrategy());
+
+            fileCorrector.CorrectFiles();
         }
 
         static string GetArgs()

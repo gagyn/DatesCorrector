@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using DatesCorrector.Models;
 
-namespace DatesCorrector
+namespace DatesCorrector.Algorithms
 {
     class FileListMaker
     {
         private readonly string _path;
         private readonly string[] _parameters;
-        private readonly List<File> _fileLists;
+        private readonly List<ImageFile> _fileLists;
 
-        public List<File> GetFiles() => _fileLists;
+        public List<ImageFile> GetFiles() => _fileLists;
 
         public FileListMaker(string path, string[] parameters)
         {
-            this._fileLists = new List<File>();
+            this._fileLists = new List<ImageFile>();
 
             this._path = path ?? throw new ArgumentNullException(nameof(path));
             this._parameters = parameters;
@@ -31,7 +31,7 @@ namespace DatesCorrector
 
         private bool CheckIsItFile() => System.IO.File.Exists(this._path);
 
-        private void JustAddOneFile() => this._fileLists.Add(new File(this._path));
+        private void JustAddOneFile() => this._fileLists.Add(new ImageFile(this._path));
 
         private void MakeList()
         {
@@ -39,7 +39,7 @@ namespace DatesCorrector
 
             foreach (var file in filesNames)
             {
-                this._fileLists.Add(new File(file));
+                this._fileLists.Add(new ImageFile(file));
             }
         }
     }
