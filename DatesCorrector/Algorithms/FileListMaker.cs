@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using DatesCorrector.Models;
 
 namespace DatesCorrector.Algorithms
@@ -24,18 +25,18 @@ namespace DatesCorrector.Algorithms
             else if (CheckIsItFile())
                 JustAddOneFile();
             else
-                throw new System.IO.DirectoryNotFoundException();
+                throw new DirectoryNotFoundException();
         }
 
-        private bool CheckIsItDirectory() => System.IO.Directory.Exists(this._path);
+        private bool CheckIsItDirectory() => Directory.Exists(this._path);
 
-        private bool CheckIsItFile() => System.IO.File.Exists(this._path);
+        private bool CheckIsItFile() => File.Exists(this._path);
 
         private void JustAddOneFile() => this._fileLists.Add(new ImageFile(this._path));
 
         private void MakeList()
         {
-            var filesNames = System.IO.Directory.GetFiles(this._path);
+            var filesNames = Directory.GetFiles(this._path);
 
             foreach (var file in filesNames)
             {

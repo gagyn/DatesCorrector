@@ -8,7 +8,8 @@ namespace DatesCorrector.Models
     class ImageFile
     {
         public FileAttributes FileAttributes { get; }
-        
+        public string Path => this._path;
+
         private readonly string _path;
 
         public ImageFile(string path)
