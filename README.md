@@ -4,7 +4,7 @@ Let's suppose you have photos or videos, which have name similar to:
 
 *IMG_20190907_201025.jpg* / *VID_20190907_211025.mp4* / *20190907_221025.jpg*
 
-but the attributes of the files are incorrect (e.g. you have file *IMG_20190827_161117*, but "Date modified" is set to *2019-09-01*).
+but the attributes of the files are incorrect (e.g. you have file *IMG_20190827_161117*, but "Date modified" and "Date created" are set to *2019-09-01*). It happens sometimes while you're copying some files from camera/phone.
 
 What can you do? **Use this application to automatically change details of pictures to the correct ones.**
 
