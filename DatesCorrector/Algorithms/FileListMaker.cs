@@ -8,17 +8,17 @@ namespace DatesCorrector.Algorithms
     class FileListMaker
     {
         private readonly string _path;
-        private readonly string[] _parameters;
+        private readonly Options _options;
         private readonly List<ImageFile> _fileLists;
 
         public List<ImageFile> GetFiles() => _fileLists;
 
-        public FileListMaker(string path, string[] parameters)
+        public FileListMaker(string path, Options options)
         {
             this._fileLists = new List<ImageFile>();
 
             this._path = path ?? throw new ArgumentNullException(nameof(path));
-            this._parameters = parameters;
+            this._options = options;
 
             if (CheckIsItDirectory())
                 MakeList();
