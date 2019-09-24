@@ -12,26 +12,17 @@ namespace DatesCorrector
         static void Main(string[] args)
         {
             var pathWithArgs = args.Length > 0 ? args[0] : GetArgs();
-
-            var firstIndexOfArgs = pathWithArgs.IndexOf('-');
             
-            var path = pathWithArgs.Substring(0, firstIndexOfArgs);
-            var parameters = pathWithArgs.Substring(firstIndexOfArgs);
+            var (path, parameters) = SplitPathAndArgs(pathWithArgs);
 
-            Options options = new Options();
+            Options options;
 
-            var optionsParser = new OptionSet()
-                { "a|ask", "ask for every file before changing.", v => options.Ask = true };
-
-            try
+            if (parameters != null)
             {
-                optionsParser.Parse(parameters.Split(' '));
+                options = ParseParameters(parameters);
             }
-            catch
-            {
-                Console.WriteLine("Parameters are incorrect!");
-                return;
-            }
+            else
+                options = new Options(); // create options with default values
 
             try 
             {
@@ -55,21 +46,36 @@ namespace DatesCorrector
             return Console.ReadLine();
         }
 
-        static bool AreParamsCorrect(string[] parameters)
+        static (string, string) SplitPathAndArgs(string pathWithArgs)
         {
-            if (parameters[parameters.Length - 1] == "")
-                return false;
+            var firstIndexOfArgs = pathWithArgs.IndexOf('-');
+            
+            if (firstIndexOfArgs == -1)
+                return (pathWithArgs, null);
 
-            for (int i = 0; i < parameters.Length; i++)
+            var path = pathWithArgs.Substring(0, firstIndexOfArgs - 1);
+            var args = pathWithArgs.Substring(firstIndexOfArgs);
+            return (path, args);
+        }
+
+        static Options ParseParameters(string parameters)
+        {
+            var options = new Options();
+
+            var optionsParser = new OptionSet() {
+                { "a|ask", "ask for every file before changing.", s => options.Ask = true },
+            };
+
+            try
             {
-                var param = parameters[i];
-
-                if (param == "" && parameters[i + 1].Length <= 1) // --ask => [...], [""], ["ask"], [...]
-                    return false;
-                if (Regex.IsMatch(param, @"^[a-zA-Z]+$") == false) // param can contain only letters
-                    return false;
+                optionsParser.Parse(parameters.Split(' '));
             }
-            return true;
+            catch
+            {
+                throw new Exception("Parameters are incorrect!");
+            }
+            
+            return options;
         }
     }
 }

@@ -1,4 +1,4 @@
 struct Options
 {
-    public bool Ask { get; }
+    public bool Ask { get; set; }
 }
