@@ -6,4 +6,8 @@
     <StartupObject>DatesCorrector.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MetadataExtractor" Version="1.5.3" />
+  </ItemGroup>
+
 </Project>
