@@ -30,7 +30,7 @@ namespace DatesCorrector.Algorithms
 
         private void CorrectTheFile(ImageFile imageFile)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

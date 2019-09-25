@@ -13,7 +13,10 @@ namespace DatesCorrector.Models
     class ImageFile
     {
         public FileAttributes FileAttributes { get; }
+<<<<<<< HEAD
+=======
         public string Path => this._path;
+>>>>>>> a85dae6f72826b7d49f2bcfa389db3ded2a7afb3
 
         private readonly string _path;
 

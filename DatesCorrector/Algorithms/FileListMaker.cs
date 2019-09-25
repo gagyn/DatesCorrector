@@ -1,41 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using DatesCorrector.Models;
+using DatesCorrector.ParsingParameters;
 
 namespace DatesCorrector.Algorithms
 {
     class FileListMaker
     {
         private readonly string _path;
-        private readonly string[] _parameters;
+        private readonly Options _options;
         private readonly List<ImageFile> _fileLists;
 
         public List<ImageFile> GetFiles() => _fileLists;
 
-        public FileListMaker(string path, string[] parameters)
+        public FileListMaker(string path, Options options)
         {
             this._fileLists = new List<ImageFile>();
 
             this._path = path ?? throw new ArgumentNullException(nameof(path));
-            this._parameters = parameters;
+            this._options = options;
 
             if (CheckIsItDirectory())
                 MakeList();
             else if (CheckIsItFile())
                 JustAddOneFile();
             else
-                throw new System.IO.DirectoryNotFoundException();
+                throw new DirectoryNotFoundException();
         }
 
-        private bool CheckIsItDirectory() => System.IO.Directory.Exists(this._path);
+        private bool CheckIsItDirectory() => Directory.Exists(this._path);
 
-        private bool CheckIsItFile() => System.IO.File.Exists(this._path);
+        private bool CheckIsItFile() => File.Exists(this._path);
 
         private void JustAddOneFile() => this._fileLists.Add(new ImageFile(this._path));
 
         private void MakeList()
         {
-            var filesNames = System.IO.Directory.GetFiles(this._path);
+            var filesNames = Directory.GetFiles(this._path);
 
             foreach (var file in filesNames)
             {
