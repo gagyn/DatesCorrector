@@ -13,22 +13,20 @@ namespace DatesCorrector.Models
     class ImageFile
     {
         public FileAttributes FileAttributes { get; }
-        public string Path => this._path;
-
-        private readonly string _path;
+        public string Path { get; }
+        public DateTime? PossibleDate { get; }
 
         public ImageFile(string path)
         {
-            this._path = path;
+            this.Path = path;
             this.FileAttributes = File.GetAttributes(path);
 
-            Console.WriteLine(GetDateTakenFromImage(path));
-            Console.WriteLine("-----");
+            this.PossibleDate = GetDateTakenFromImage();
         }
 
-        private DateTime GetDateTakenFromImage(string path)
+        private DateTime? GetDateTakenFromImage()
         {
-            var file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var file = new FileStream(this.Path, FileMode.Open, FileAccess.Read);
 
             // Read all metadata from the image
             var directories = ImageMetadataReader.ReadMetadata(file);
@@ -39,10 +37,7 @@ namespace DatesCorrector.Models
             // Read the DateTime tag value
             var dateTime = subIfdDirectory?.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
 
-            if (dateTime == null)
-                throw new Exception("Taken date is null.");
-            
-            return dateTime.Value;
+            return dateTime;
         }
     }
 }
