@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DatesCorrector.Models;
+using DatesCorrector.ParsingParameters;
 
 namespace DatesCorrector.Algorithms
 {
@@ -9,14 +10,16 @@ namespace DatesCorrector.Algorithms
     {
         private readonly List<ImageFile> _files;
         private readonly IChooseFileStrategy _chooseFileStrategy;
+        private readonly Options _options;
 
-        public FilesCorrector(List<ImageFile> files, IChooseFileStrategy chooseStrategy)
+        public FilesCorrector(List<ImageFile> files, IChooseFileStrategy chooseStrategy, Options options)
         {
             if (files.Count == 0)
                 throw new ArgumentException();
 
             this._files = files;
             this._chooseFileStrategy = chooseStrategy;
+            this._options = options;
         }
 
         public void CorrectFiles()

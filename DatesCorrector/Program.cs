@@ -19,7 +19,7 @@ namespace DatesCorrector
             try 
             {
                 var fileListMaker = new FileListMaker(parser.Path, parser.Options);
-                var fileCorrector = new FilesCorrector(fileListMaker.GetFiles(), new DefaultChooseStrategy());
+                var fileCorrector = new FilesCorrector(fileListMaker.GetFiles(), new DefaultChooseStrategy(), parser.Options);
                 fileCorrector.CorrectFiles();
 
                 Console.WriteLine("Work done!");
