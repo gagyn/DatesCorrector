@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using DatesCorrector.Algorithms;
-using Mono.Options;
+using DatesCorrector.FileCorrector;
+using DatesCorrector.FileListMaker;
 using DatesCorrector.ParsingParameters;
 
 namespace DatesCorrector
@@ -18,7 +16,7 @@ namespace DatesCorrector
 
             try 
             {
-                var fileListMaker = new FileListMaker(parser.Path, parser.Options);
+                var fileListMaker = new FileListMaker.FileListMaker(parser.Path, parser.Options);
                 var fileCorrector = new FilesCorrector(fileListMaker.GetFiles(), new DefaultChooseStrategy(), parser.Options);
                 fileCorrector.CorrectFiles();
 

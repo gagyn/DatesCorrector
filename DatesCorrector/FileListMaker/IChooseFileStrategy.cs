@@ -1,6 +1,6 @@
 ﻿using DatesCorrector.Models;
 
-namespace DatesCorrector.Algorithms
+namespace DatesCorrector.FileListMaker
 {
     internal interface IChooseFileStrategy
     {

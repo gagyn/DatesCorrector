@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using DatesCorrector.FileListMaker;
 using DatesCorrector.Models;
 using DatesCorrector.ParsingParameters;
 
-namespace DatesCorrector.Algorithms
+namespace DatesCorrector.FileCorrector
 {
     class FilesCorrector
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DatesCorrector.Algorithms
+namespace DatesCorrector.FileListMaker
 {
     class DefaultChooseStrategy : IChooseFileStrategy
     {

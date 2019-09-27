@@ -4,7 +4,7 @@ using System.IO;
 using DatesCorrector.Models;
 using DatesCorrector.ParsingParameters;
 
-namespace DatesCorrector.Algorithms
+namespace DatesCorrector.FileListMaker
 {
     class FileListMaker
     {
