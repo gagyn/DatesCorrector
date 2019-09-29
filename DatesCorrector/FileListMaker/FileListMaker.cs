@@ -41,7 +41,14 @@ namespace DatesCorrector.FileListMaker
 
             foreach (var file in filesNames)
             {
-                this._fileLists.Add(new ImageFile(file));
+                try
+                {
+                    this._fileLists.Add(new ImageFile(file));
+                }
+                catch
+                {
+                    // ignored
+                }
             }
         }
     }

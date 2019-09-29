@@ -15,9 +15,11 @@ namespace DatesCorrector.FileCorrector
         {
             while (true)
             {
-                Console.WriteLine("Correct the file? (y/n)");
+                Console.Write($"{imageFile.Path} - date: {imageFile.PossibleDate} - Correct the file? (y/n): ");
+                var answer = Console.ReadKey().KeyChar;
+                Console.WriteLine();
 
-                switch (Console.ReadKey().KeyChar)
+                switch (answer)
                 {
                     case 'y':
                         return true;
