@@ -7,31 +7,27 @@ namespace DatesCorrector.FileListMaker
 {
     class DefaultChooseStrategy : IChooseFileStrategy
     {
-        private ImageFile _imageFile;
-
         public bool ShouldItTakeThisFile(ImageFile imageFile)
         {
-            this._imageFile = imageFile;
-
-            if (IsFileHidden())
+            if (IsFileHidden(imageFile))
                 return false;
             
-            if(IsFilePhotoFile() == false)
+            if(IsFilePhotoFile(imageFile) == false)
                 return false;
 
             return true;
         }
 
-        private bool IsFileHidden() => this._imageFile.FileAttributes.HasFlag(FileAttributes.Hidden);
+        private bool IsFileHidden(ImageFile file) => file.FileAttributes.HasFlag(FileAttributes.Hidden);
 
-        private bool IsFilePhotoFile()
+        private bool IsFilePhotoFile(ImageFile file)
         {
             var jpg = "FFD8";
             var png = "8950";
             
             var imageFormats = new List<string> { jpg, png };
 
-            Stream stream = (new StreamReader(this._imageFile.Path)).BaseStream;
+            Stream stream = (new StreamReader(file.Path)).BaseStream;
             var byte1 = stream.ReadByte();
             var byte2 = stream.ReadByte();
             

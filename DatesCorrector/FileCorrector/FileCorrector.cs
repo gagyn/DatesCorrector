@@ -10,8 +10,7 @@ namespace DatesCorrector.FileCorrector
     {
         private readonly List<ImageFile> _files;
         private readonly IChooseFileStrategy _chooseFileStrategy;
-        private readonly Options _options;
-
+        private readonly ICorrectStrategy _correctStrategy;
         public FilesCorrector(List<ImageFile> files, IChooseFileStrategy chooseStrategy, Options options)
         {
             if (files.Count == 0)
@@ -19,21 +18,28 @@ namespace DatesCorrector.FileCorrector
 
             this._files = files;
             this._chooseFileStrategy = chooseStrategy;
-            this._options = options;
+            this._correctStrategy = ChooseStrategy(options);
         }
 
         public void CorrectFiles()
         {
-            foreach (var file in this._files)
+            foreach (var file in _files)
             {
-                if (this._chooseFileStrategy.ShouldItTakeThisFile(file))
-                    CorrectFileDateTimeAttribute(file);
+                if (_chooseFileStrategy.ShouldItTakeThisFile(file))
+                    _correctStrategy.CorrectFile(file);
             }
         }
 
-        private void CorrectFileDateTimeAttribute(ImageFile imageFile)
+        private ICorrectStrategy ChooseStrategy(Options options)
         {
-            //throw new NotImplementedException();
+            ICorrectStrategy correctStrategy;
+
+            if (options.Ask)
+                correctStrategy = new AskBeforeCorrectionStrategy();
+            else
+                correctStrategy = new DefaultCorrectStrategy();
+
+            return correctStrategy;
         }
     }
 }
