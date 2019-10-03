@@ -18,23 +18,23 @@ namespace DatesCorrector.FileCorrector
             // IMG_02122018_124311.jpg => 02.12.2018 12:43:11
             var dateTime = new DateTime();
 
-            // TODO: algotihm for getting date from name
+            // TODO: algorithm for getting date from name
             // search for year (4 chars) => 1990 - yearNow [2001 - 2012 might be also months]
             // get month and day on the right or left of year
 
             // _20122012_   => not known -> try to find out how other files are named in the same directory
-            // _19102012_   => 2012 year, 19.10, beacuse 1910 year would be too early for mobile phones
+            // _19102012_   => 2012 year, 19.10, because 1910 year would be too early for mobile phones
             // _02122019_   => 02.12.2019
 
             var justName = imageFile.Path.Split('\\')[^-1];
-            var splittedName = justName.Split('_');
+            var separatedNames = justName.Split('_');
             
-            if (splittedName.Length == 1)
-                splittedName = justName.Split('-');
+            if (separatedNames.Length == 1)
+                separatedNames = justName.Split('-');
 
             // [IMG][20122012][232320][jpg]
 
-            var possibleDate = splittedName.First(x => x.Length == 8 && x.All(ch => char.GetNumericValue(ch) != -1.0)); // search for date
+            var possibleDate = separatedNames.First(x => x.Length == 8 && x.All(ch => char.GetNumericValue(ch) != -1.0)); // search for date
             // TODO: check if it is date or time
 
             var (yearIndex, monthIndex) = GetYearAndMonth(possibleDate);
@@ -46,9 +46,8 @@ namespace DatesCorrector.FileCorrector
 
         private (int, int) GetYearAndMonth(string possibleDate) // 20121230
         {
-            (string x, string y) possibleYearAndMonth;
             (int year, int month) yearAndMonth;
-            possibleYearAndMonth = (possibleDate.Substring(0, 4), possibleDate.Substring(4));
+            (string x, string y) possibleYearAndMonth = (possibleDate.Substring(0, 4), possibleDate.Substring(4));
 
             if (IsItCorrectYear(possibleYearAndMonth.x))
             {
